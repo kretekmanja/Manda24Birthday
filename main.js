@@ -1,14 +1,29 @@
 const $=s=>document.querySelector(s);
 
 (function(){
-  const el=$('#typewriter'),text='Happy Birthday',sleep=ms=>new Promise(r=>setTimeout(r,ms));
+  const el=$('#typewriter');
+  const phrases=[
+    'Happy 24th Birthday ✨',
+    'Happy Birthday Amanda 💖',
+    'Barakallahu Fii Umrik 🌸'
+  ];
+  const sleep=ms=>new Promise(r=>setTimeout(r,ms));
   (async function loop(){
-    await sleep(1500);
+    await sleep(1200);
+    let pIdx=0;
     for(;;){
-      for(let i=1;i<=text.length;i++){el.textContent=text.slice(0,i);await sleep(110+Math.random()*40-20);}
-      await sleep(1800);
-      for(let i=text.length;i>=0;i--){el.textContent=text.slice(0,i);await sleep(55);}
-      await sleep(350);
+      const text=phrases[pIdx%phrases.length];
+      for(let i=1;i<=text.length;i++){
+        el.textContent=text.slice(0,i);
+        await sleep(95+Math.random()*30-15);
+      }
+      await sleep(2200);
+      for(let i=text.length;i>=0;i--){
+        el.textContent=text.slice(0,i);
+        await sleep(40);
+      }
+      await sleep(400);
+      pIdx++;
     }
   })();
 })();
@@ -71,6 +86,8 @@ const $=s=>document.querySelector(s);
 (function(){
   const card=$('#card'),flip=()=>card.classList.toggle('flipped');
   $('#toggleButton').addEventListener('click',e=>{e.stopPropagation();flip();});
+  const closeBtn=$('.close-card-btn');
+  if(closeBtn)closeBtn.addEventListener('click',e=>{e.stopPropagation();flip();});
   $('#cardContainer').addEventListener('click',flip);
 })();
 
@@ -78,7 +95,12 @@ const $=s=>document.querySelector(s);
   const cols=['#ffd27a','#ff7eb6','#7fe7ff','#ffffff'];
   const boom=()=>{if(typeof confetti==='function')confetti({particleCount:200,spread:120,origin:{y:.17},colors:cols});};
   if(document.readyState==='complete')boom();else addEventListener('load',boom);
-  const msg=$('#wishMsg'),lines=['wish sent, it will come true ✨','close your eyes and think of it 🌟','the candles are out, make it big 🎂'];
+  const msg=$('#wishMsg'),lines=[
+    'Doa tulus terkirim, semoga diijabah Allah SWT ✨',
+    'Tutup mata dan panjatkan doamu bidadariku 🌟',
+    'Lilinnya padam, semoga semua impianmu terwujud 🎂',
+    'Semoga senantiasa dalam lindungan & rahmat Allah 🤲💖'
+  ];
   let k=0;
   $('#wishBtn').addEventListener('click',()=>{
     msg.textContent=lines[k++%lines.length];msg.classList.remove('pop');void msg.offsetWidth;msg.classList.add('pop');
