@@ -84,11 +84,23 @@ const $=s=>document.querySelector(s);
 })();
 
 (function(){
-  const card=$('#card'),flip=()=>card.classList.toggle('flipped');
-  $('#toggleButton').addEventListener('click',e=>{e.stopPropagation();flip();});
+  const card=$('#card');
+  const openCard=()=>card.classList.add('flipped');
+  const closeCard=()=>card.classList.remove('flipped');
+  
+  $('#toggleButton').addEventListener('click',e=>{
+    e.stopPropagation();
+    openCard();
+  });
+  
+  const front=$('.side.front');
+  if(front)front.addEventListener('click',openCard);
+
   const closeBtn=$('.close-card-btn');
-  if(closeBtn)closeBtn.addEventListener('click',e=>{e.stopPropagation();flip();});
-  $('#cardContainer').addEventListener('click',flip);
+  if(closeBtn)closeBtn.addEventListener('click',e=>{
+    e.stopPropagation();
+    closeCard();
+  });
 })();
 
 (function(){
